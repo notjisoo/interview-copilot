@@ -9,4 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('ping')
+  ping(): string {
+    return 'pong! 后端服务正常运行中...';
+  }
 }

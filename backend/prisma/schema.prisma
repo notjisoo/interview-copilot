@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id         Int          @id @default(autoincrement())
+  username   String       @unique
+  nickname   String?
+  password   String
+  interviews interviews[]
+}
+
+model interviews {
+  id          Int        @id @default(autoincrement())
+  user_id     Int
+  jd_text     String?    @db.Text
+  status      String     @default("ongoing")
+  total_score Int        @default(0)
+  created_at  DateTime   @default(now())
+  user        users      @relation(fields: [user_id], references: [id])
+  messages    messages[]
+}
+
+model messages {
+  id           Int        @id @default(autoincrement())
+  interview_id Int
+  role         String
+  content      String     @db.Text
+  created_at   DateTime   @default(now())
+  interview    interviews @relation(fields: [interview_id], references: [id])
+}
