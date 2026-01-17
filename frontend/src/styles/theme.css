@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* 针对toast icon不居中问题 */
+.adm-toast-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

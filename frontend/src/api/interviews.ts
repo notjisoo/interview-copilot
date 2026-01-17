@@ -4,7 +4,7 @@ import type {
   CreateInterviewDto,
   Message,
   CreateMessageDto,
-} from "../types";
+} from "@/types/index.ts";
 
 // 配置 axios 基础URL
 const API_BASE_URL = "http://localhost:3000";
@@ -16,8 +16,6 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-// ==================== API 方法 ====================
 
 // 获取所有面试
 export const getAllInterviews = async (): Promise<Interview[]> => {
@@ -33,7 +31,7 @@ export const getInterviewById = async (id: number): Promise<Interview> => {
 
 // 创建新面试
 export const createInterview = async (
-  data: CreateInterviewDto
+  data: CreateInterviewDto,
 ): Promise<Interview> => {
   const response = await api.post("/interviews/create", data);
   return response.data;
@@ -42,7 +40,7 @@ export const createInterview = async (
 // 更新面试
 export const updateInterview = async (
   id: number,
-  data: Partial<Interview>
+  data: Partial<Interview>,
 ): Promise<Interview> => {
   const response = await api.patch(`/interviews/${id}`, data);
   return response.data;
@@ -57,7 +55,7 @@ export const deleteInterviews = async (ids: number[]): Promise<any> => {
 // 发送消息（对话）
 export const sendMessage = async (
   interviewId: number,
-  content: string
+  content: string,
 ): Promise<Message> => {
   const response = await api.post(`/interviews/${interviewId}/chat`, {
     content,
@@ -76,7 +74,7 @@ export const getAllMessages = async (): Promise<{
 
 // 创建消息
 export const createMessage = async (
-  data: CreateMessageDto
+  data: CreateMessageDto,
 ): Promise<Message> => {
   const response = await api.post("/messages", data);
   return response.data;
